@@ -306,7 +306,7 @@
         Zon Banner Pengiklanan Sauh Sematan
     </footer>
 
-    <script>
+        <script>
         function calculateZakat() {
             const sal = document.getElementById('annualSalary');
             const sav = document.getElementById('savingsAccount');
@@ -336,6 +336,8 @@
 
             assetElement.innerText = "RM " + totalWealth.toLocaleString('en-MY', {minimumFractionDigits: 2});
             dueElement.innerText = "RM " + zakatDue.toLocaleString('en-MY', {minimumFractionDigits: 2});
+            
             document.getElementById('results').style.display = 'block';
         }
-            
+    </script>
+
