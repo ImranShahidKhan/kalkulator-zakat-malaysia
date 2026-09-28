@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Zakat Malaysia</title>
+    
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-input: #0b1329;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --brand-emerald: #10b981;
+            --brand-amber: #f59e0b;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin: 24px 0;
+            max-width: 500px;
+        }
+
+        header h1 {
+            color: var(--brand-emerald);
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        main {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: white;
+            font-family: monospace;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--brand-emerald);
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 0.875rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .ad-space {
+            margin: 24px 0;
+            padding: 16px;
+            background-color: var(--bg-input);
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #475569;
+            text-transform: uppercase;
+        }
+
+        #results {
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .status-badge {
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .status-eligible {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: var(--brand-amber);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .status-none {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--brand-emerald);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .result-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--brand-emerald);
+            margin-bottom: 12px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 0.875rem;
+        }
+
+        .result-row span:first-child {
+            color: var(--text-muted);
+        }
+
+        .result-row span:last-child {
+            font-family: monospace;
+            font-weight: 700;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+        }
+
+        .total-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .total-value {
+            font-family: monospace;
+            font-size: 1.75rem;
+            font-weight: 900;
+            color: var(--brand-amber);
+        }
+
+        .disclaimer-box {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px dashed #33415560;
+            font-size: 0.65rem;
+            color: #64748b;
+            line-height: 1.4;
+            text-align: justify;
+        }
+
+        .seo-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 32px 0;
+            background-color: #1e293b66;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #33415540;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .seo-section h2 {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #cbd5e1;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .seo-section p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        footer {
+            width: 100%;
+            background-color: var(--bg-input);
+            padding: 10px;
+            text-align: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #475569;
+            border-top: 1px solid var(--border-color);
+            position: sticky;
+            bottom: 0;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Kalkulator Zakat Malaysia</h1>
+        <p>Semak kelayakan Haul dan Nisab semasa bagi Zakat Pendapatan serta Harta Simpanan.</p>
+    </header>
+
+    <main>
+        <div class="form-group">
+            <label>Jumlah Pendapatan Kasar Setahun (RM)</label>
+            <input type="number" id="annualSalary" value="60000">
+        </div>
+
+        <div class="form-group">
+            <label>Jumlah Wang Simpanan Bank (RM)</label>
+            <input type="number" id="savingsAccount" value="0">
+        </div>
+
+        <button onclick="calculateZakat()">Kira Jumlah Zakat</button>
+
+        <div class="ad-space">
+            Ruang Iklan Banner Pengiklanan
+        </div>
+
+        <div id="results">
+            <div id="statusBadge" class="status-badge"></div>
+            
+            <div class="result-title">Ringkasan Analisis Nisab:</div>
+            <div class="result-row">
+                <span>Kadar Nisab Semasa (Anggaran):</span>
+                <span style="color: white;">RM 25,000.00</span>
+            </div>
+            <div class="result-row">
+                <span>Jumlah Harta Tertakluk Zakat:</span>
+                <span id="totalAssets" style="color: white;">RM 0.00</span>
+            </div>
+            <div class="result-row">
+                <span>Kadar Zakat Dikenakan:</span>
+                <span style="color: white;">2.5%</span>
+            </div>
+            <div class="total-row">
+                <span class="total-label">Jumlah Zakat Wajib Dibayar:</span>
+                <span id="zakatDue" class="total-value">RM 0.00</span>
+            </div>
+
+            <div class="disclaimer-box">
+                <strong>Penafian (Disclaimer):</strong> Pengiraan ini menggunakan baseline standard kadar Zakat Al-Mal (2.5%) serta anggaran purata nilai Nisab tahunan semasa di Malaysia. Sila rujuk agensi Pusat Pungutan Zakat (PPZ) negeri anda untuk pengesahan bayaran rasmi.
+            </div>
+        </div>
+    </main>
+
+    <section class="seo-section">
+        <h2>Mengenai Kewajipan Zakat Pendapatan & Simpanan</h2>
+        <p><strong>Bagaimanakah Zakat harta dihitung?</strong> Apabila jumlah keseluruhan aset tunai atau pendapatan tahunan anda melebihi kadar Nisab (setara 85g emas) serta genap tempoh setahun (Haul), syariat mewajibkan bayaran zakat sebanyak 2.5%.</p>
+    </section>
+
+    <footer>
+        Zon Banner Pengiklanan Sauh Sematan
+    </footer>
+
+    <script>
+        function calculateZakat() {
+            const sal = document.getElementById('annualSalary');
+            const sav = document.getElementById('savingsAccount');
+            
+            const salary = parseFloat(sal.value) || 0;
+            const savings = parseFloat(sav.value) || 0;
+            
+            const totalWealth = salary + savings;
+            const nisabThreshold = 25000;
+            const zakatRate = 0.025;
+            
+            let zakatDue = 0;
+            const badge = document.getElementById('statusBadge');
+
+            if (totalWealth >= nisabThreshold) {
+                zakatDue = totalWealth * zakatRate;
+                badge.innerText = "Wajib Membayar Zakat";
+                badge.className = "status-badge status-eligible";
+            } else {
+                zakatDue = 0;
+                badge.innerText = "Tidak Memenuhi Syarat Nisab Semasa";
+                badge.className = "status-badge status-none";
+            }
+
+            const assetElement = document.getElementById('totalAssets');
+            const dueElement = document.getElementById('zakatDue');
+
+            assetElement.innerText = "RM " + totalWealth.toLocaleString('en-MY', {minimumFractionDigits: 2});
+            dueElement.innerText = "RM " + zakatDue.toLocaleString('en-MY', {minimumFractionDigits: 2});
+            document.getElementById('results').style.display = 'block';
+        }
+            
